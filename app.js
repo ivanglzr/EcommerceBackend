@@ -1,5 +1,5 @@
 import express from "express";
-import { statusMessages } from "./config.js";
+import { statusMessages } from "./src/config.js";
 
 const app = express();
 
