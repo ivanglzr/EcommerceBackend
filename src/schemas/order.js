@@ -8,7 +8,6 @@ const orderSchema = z.object({
       quantity: z.number().optional(),
     })
   ),
-  userId: z.string().length(24),
   status: z.enum(orderStatus).optional(),
   address: z.string(),
 });
