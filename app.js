@@ -1,16 +1,12 @@
 import express from "express";
-import { statusMessages } from "./src/config.js";
+
+import userRouter from "./src/routes/user.js";
 
 const app = express();
 
 app.disable("x-powered-by");
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  return res.json({
-    status: statusMessages.success,
-    message: "Working correctly",
-  });
-});
+app.use(userRouter);
 
 export default app;
