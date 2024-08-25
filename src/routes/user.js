@@ -8,11 +8,11 @@ import orderRouter from "./order.js";
 
 const userRouter = Router();
 
-userRouter.post("/user/login", loginUser);
-userRouter.post("/user/register", postUser);
+userRouter.post("/login", loginUser);
+userRouter.post("/register", postUser);
 
-userRouter.use("/user", authenticateUser);
+userRouter.use("/", authenticateUser);
 
-userRouter.use("/user", orderRouter);
+userRouter.use("/", orderRouter);
 
 export default userRouter;

@@ -6,7 +6,8 @@ import { postProduct } from "../controllers/product.js";
 
 const productRouter = Router();
 
-productRouter.post("/", postProduct);
 productRouter.use("/", authenticateAdmin);
+
+productRouter.post("/", postProduct);
 
 export default productRouter;
