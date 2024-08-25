@@ -4,6 +4,7 @@ import { cors } from "./src/middlewares/cors.js";
 import cookieParser from "cookie-parser";
 
 import userRouter from "./src/routes/user.js";
+import productRouter from "./src/routes/product.js";
 
 const app = express();
 
@@ -13,5 +14,7 @@ app.use(cors);
 app.use(cookieParser());
 
 app.use(userRouter);
+
+app.use("/product", productRouter);
 
 export default app;
