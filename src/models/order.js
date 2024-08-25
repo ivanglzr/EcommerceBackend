@@ -15,7 +15,7 @@ const OrderSchema = new Schema({
   ],
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   status: {
-    type: string,
+    type: String,
     enum: orderStatus,
     required: true,
     default: "pending",
