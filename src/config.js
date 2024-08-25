@@ -4,3 +4,5 @@ export const statusMessages = {
 };
 
 export const orderStatus = ["paid", "pending"];
+
+export const SALT_ROUNDS = 10;
