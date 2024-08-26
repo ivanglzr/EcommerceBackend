@@ -56,7 +56,7 @@ export async function postProduct(req, res) {
   if (error) {
     return res.status(422).json({
       status: statusMessages.error,
-      message: "Data isn't valid",
+      message: error.errors[0].message,
     });
   }
 
