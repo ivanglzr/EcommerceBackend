@@ -4,7 +4,7 @@ import { orderStatus } from "../config.js";
 const orderSchema = z.object({
   products: z.array(
     z.object({
-      productId: z.string().length(24),
+      productId: z.string().length(24, "Id must be 24 characters long"),
       quantity: z.number().optional(),
     })
   ),
