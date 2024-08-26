@@ -7,6 +7,7 @@ import {
   getProduct,
   getProducts,
   postProduct,
+  putProduct,
 } from "../controllers/product.js";
 
 const productRouter = Router();
@@ -17,5 +18,6 @@ productRouter.get("/:productId", validateProductId, getProduct);
 productRouter.use("/", authenticateAdmin);
 
 productRouter.post("/", postProduct);
+productRouter.put("/:productId", validateProductId, putProduct);
 
 export default productRouter;

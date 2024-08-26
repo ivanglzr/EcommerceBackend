@@ -1,6 +1,6 @@
 import { statusMessages } from "../config.js";
 
-import { validateProduct } from "../schemas/product.js";
+import { validatePartialProduct, validateProduct } from "../schemas/product.js";
 
 import Product from "../models/product.js";
 
@@ -73,6 +73,47 @@ export async function postProduct(req, res) {
     return res.status(500).json({
       status: statusMessages.error,
       message: "An error occurred while creating the product",
+    });
+  }
+}
+
+export async function putProduct(req, res) {
+  const { productId } = req.params;
+
+  const { data, error } = validatePartialProduct(req.body);
+
+  if (error) {
+    return res.status(422).json({
+      status: statusMessages.error,
+      message: error.errors[0].message,
+    });
+  }
+
+  if (Object.keys(data).length === 0) {
+    return res.status(400).json({
+      status: statusMessages.error,
+      message: "Body is empty",
+    });
+  }
+
+  try {
+    const product = await Product.findByIdAndUpdate(productId, data);
+
+    if (!product) {
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Product not found",
+      });
+    }
+
+    return res.json({
+      status: statusMessages.success,
+      message: "Product edited",
+    });
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error occurred while editing the product",
     });
   }
 }
