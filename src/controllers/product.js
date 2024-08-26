@@ -4,6 +4,26 @@ import { validateProduct } from "../schemas/product.js";
 
 import Product from "../models/product.js";
 
+export async function getProducts(req, res) {
+  try {
+    const products = await Product.find({});
+
+    const message =
+      products.length === 0 ? "There isn't any products" : "Products found";
+
+    return res.json({
+      status: statusMessages.success,
+      message,
+      products,
+    });
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error occurred while finding the products",
+    });
+  }
+}
+
 export async function postProduct(req, res) {
   const { data, error } = validateProduct(req.body);
 
