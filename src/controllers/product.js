@@ -24,6 +24,32 @@ export async function getProducts(req, res) {
   }
 }
 
+export async function getProduct(req, res) {
+  const { productId } = req.params;
+
+  try {
+    const product = Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Product not found",
+      });
+    }
+
+    return res.json({
+      status: statusMessages.success,
+      message: "Product found",
+      product,
+    });
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error occurred while finding the product",
+    });
+  }
+}
+
 export async function postProduct(req, res) {
   const { data, error } = validateProduct(req.body);
 
