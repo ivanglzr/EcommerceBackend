@@ -13,7 +13,7 @@ export async function loginUser(req, res) {
   if (error) {
     return res.status(422).json({
       status: statusMessages.error,
-      message: "Data isn't valid",
+      message: error.errors[0].message,
     });
   }
 
@@ -70,7 +70,7 @@ export async function postUser(req, res) {
   if (error) {
     return res.status(422).json({
       status: statusMessages.error,
-      message: "Data isn't valid",
+      message: error.errors[0].message,
     });
   }
 
