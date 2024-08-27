@@ -22,7 +22,7 @@ productRouter.get("/", getProducts);
 productRouter.get("/:productId", validateProductId, getProduct);
 
 productRouter.get("/:productId/image", validateProductId, getImageById);
-productRouter.get("/image", getImageByName);
+productRouter.get("/image/:image", getImageByName);
 
 productRouter.use("/", authenticateAdmin);
 

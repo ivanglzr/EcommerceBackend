@@ -99,9 +99,10 @@ export async function getImageById(req, res) {
 }
 
 export async function getImageByName(req, res) {
-  const { image } = req.query;
+  const { image } = req.params;
 
-  const imagePath = getImagePath(image);
+  const safeImageName = path.basename(image);
+  const imagePath = getImagePath(safeImageName);
 
   try {
     await fs.access(imagePath);
