@@ -1,8 +1,13 @@
 import { Router } from "express";
 
-import { postOrder } from "../controllers/order.js";
+import { validateOrderId } from "../middlewares/validateOrderId.js";
+
+import { getOrder, getOrders, postOrder } from "../controllers/order.js";
 
 const orderRouter = Router();
+
+orderRouter.get("/:orderId", validateOrderId, getOrder);
+orderRouter.get("/", getOrders);
 
 orderRouter.post("/", postOrder);
 
