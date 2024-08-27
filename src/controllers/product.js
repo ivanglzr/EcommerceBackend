@@ -66,6 +66,60 @@ export async function getProduct(req, res) {
   }
 }
 
+export async function getImageById(req, res) {
+  const { productId } = req.params;
+
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Product not found",
+      });
+    }
+
+    const imagePath = getImagePath(product.image);
+
+    try {
+      await fs.access(imagePath);
+      return res.sendFile(imagePath);
+    } catch (err) {
+      const defaultImagePath = getImagePath(defaultImageName);
+
+      await fs.access(defaultImagePath);
+      return res.sendFile(defaultImagePath);
+    }
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error occurred while finding the image",
+    });
+  }
+}
+
+export async function getImageByName(req, res) {
+  const { image } = req.query;
+
+  const imagePath = getImagePath(image);
+
+  try {
+    await fs.access(imagePath);
+    return res.sendFile(imagePath);
+  } catch (err) {
+    const defaultImagePath = getImagePath(defaultImageName);
+    try {
+      await fs.access(defaultImagePath);
+      return res.sendFile(defaultImagePath);
+    } catch (_) {
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Image not found",
+      });
+    }
+  }
+}
+
 export async function postProduct(req, res) {
   const { data, error } = validateProduct(req.body);
 
