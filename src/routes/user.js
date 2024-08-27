@@ -13,6 +13,6 @@ userRouter.post("/register", postUser);
 
 userRouter.use("/", authenticateUser);
 
-userRouter.use("/", orderRouter);
+userRouter.use("/order", orderRouter);
 
 export default userRouter;

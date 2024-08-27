@@ -4,6 +4,6 @@ import { postOrder } from "../controllers/order.js";
 
 const orderRouter = Router();
 
-orderRouter.post("/order", postOrder);
+orderRouter.post("/", postOrder);
 
 export default orderRouter;
