@@ -1,8 +1,24 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+
 import { statusMessages } from "../config.js";
 
 import { validatePartialProduct, validateProduct } from "../schemas/product.js";
 
 import Product from "../models/product.js";
+
+import { imagesDirectory, defaultImageName } from "../config.js";
+
+const getImagePath = (imageName) =>
+  path.join(process.cwd(), imagesDirectory, imageName);
+
+const deleteImage = async (imageName) => {
+  if (imageName && imageName !== defaultImageName) {
+    try {
+      await fs.unlink(path.join(process.cwd(), imagesDirectory, imageName));
+    } catch (err) {}
+  }
+};
 
 export async function getProducts(req, res) {
   try {
