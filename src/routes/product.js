@@ -9,6 +9,8 @@ import { authenticateAdmin } from "../middlewares/authenticateAdmin.js";
 import {
   getProduct,
   getProducts,
+  getImageById,
+  getImageByName,
   postProduct,
   putProduct,
   uploadImage,
@@ -18,6 +20,9 @@ const productRouter = Router();
 
 productRouter.get("/", getProducts);
 productRouter.get("/:productId", validateProductId, getProduct);
+
+productRouter.get("/:productId/image", validateProductId, getImageById);
+productRouter.get("/image", getImageByName);
 
 productRouter.use("/", authenticateAdmin);
 
