@@ -41,4 +41,11 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 5 },
 });
 
+productRouter.patch(
+  "/:productId/image",
+  validateProductId,
+  upload.single("file0"),
+  uploadImage
+);
+
 export default productRouter;
