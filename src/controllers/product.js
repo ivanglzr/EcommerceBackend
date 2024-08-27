@@ -133,3 +133,54 @@ export async function putProduct(req, res) {
     });
   }
 }
+
+export async function uploadImage(req, res) {
+  const { file } = req;
+
+  if (!file) {
+    return res.status(400).json({
+      status: statusMessages.error,
+      message: "There isn't an image",
+    });
+  }
+
+  const ext = file.mimetype.split("/")[1];
+
+  if (ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "png") {
+    await deleteImage(file.filename);
+
+    return res.status(400).json({
+      status: statusMessages.error,
+      message: "File type isn't valid",
+    });
+  }
+
+  const { productId } = req.params;
+
+  try {
+    const product = await Product.findByIdAndUpdate(productId, {
+      image: file.filename,
+    });
+
+    if (!product) {
+      await deleteImage(file.filename);
+
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Product not found",
+      });
+    }
+
+    await deleteImage(product.image);
+
+    return res.json({
+      status: statusMessages.success,
+      message: "Image uploaded",
+    });
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error ocurred while uploading the image",
+    });
+  }
+}
