@@ -185,3 +185,29 @@ export async function putOrder(req, res) {
     });
   }
 }
+
+export async function deleteOrder(req, res) {
+  const id = req.session;
+  const { orderId } = req.params;
+
+  try {
+    const order = await Order.findOneAndDelete({ userId: id, _id: orderId });
+
+    if (!order) {
+      return res.status(404).json({
+        status: statusMessages.error,
+        message: "Order not found",
+      });
+    }
+
+    return res.json({
+      status: statusMessages.success,
+      message: "Order deleted",
+    });
+  } catch (_) {
+    return res.status(500).json({
+      status: statusMessages.error,
+      message: "An error occurred while deleting the order",
+    });
+  }
+}
