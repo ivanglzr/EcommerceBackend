@@ -3,7 +3,10 @@ export const statusMessages = {
   success: "success",
 };
 
-export const orderStatus = ["paid", "pending"];
+export const orderStatus = {
+  paid: "paid",
+  pending: "pending",
+};
 
 export const SALT_ROUNDS = 10;
 
