@@ -8,7 +8,7 @@ const CartSchema = Schema({
         ref: "Product",
         required: true,
       },
-      quantity: { type: number, default: 1 },
+      quantity: { type: Number, default: 1 },
       _id: false,
     },
   ],
